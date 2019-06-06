@@ -15,3 +15,9 @@ class Paciente(models.Model):
     telefono = models.IntegerField()
     prevision = models.CharField(max_length=200)
 
+
+class AgendarExamen(models.Model):
+    descripcion = models.CharField(max_length=300)
+    hora = models.TimeField(null=True, blank=True)
+    dia = models.DateField(null=True, blank=True)
+    usuario = models.ForeignKey(Paciente, on_delete=models.CASCADE)
