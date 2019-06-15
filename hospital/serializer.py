@@ -25,4 +25,7 @@ class EspacialistaSerializer(serializers.ModelSerializer):
 class ExamenSerializer(serializers.ModelSerializer):
     class Meta:
         model = Examen
-        fields = '__all__'
+        fields = ('id','descripcion','paciente','tipo_examen','espacialista','pacienteName',
+        'paciente_ape',
+        'duracionExam',
+        'precioExam')

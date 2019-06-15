@@ -15,12 +15,17 @@ class Paciente(models.Model):
     telefono = models.IntegerField()
     prevision = models.CharField(max_length=200)
 
+    def __str__(self):
+        return self.rut_paciente
 
 class AgendarExamen(models.Model):
     descripcion = models.CharField(max_length=300)
     hora = models.TimeField(null=True, blank=True)
     dia = models.DateField(null=True, blank=True)
     usuario = models.ForeignKey(Paciente, on_delete=models.CASCADE)
+
+    def __str__(self):
+       return self.usuario.rut_paciente
 
 
 
@@ -65,7 +70,6 @@ class Espacialista(models.Model):
     def __str__(self):
         return self.rut_especialista
 
-
 class Examen(models.Model):
     paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE)
     tipo_examen = models.ForeignKey(TipoExamen, on_delete=models.CASCADE)
@@ -73,6 +77,16 @@ class Examen(models.Model):
     espacialista = models.ForeignKey(Espacialista, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.paciente
+        return self.tipo_examen
 
+    def pacienteName(self):
+        return self.paciente.nombres
 
+    def paciente_ape(self):
+        return (self.paciente.apellido_pat, self.paciente.apellido_mat)
+
+    def duracionExam(self):
+        return self.tipo_examen.duracion
+
+    def precioExam(self):
+        return self.tipo_examen.precio
