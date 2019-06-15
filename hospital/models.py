@@ -18,6 +18,23 @@ class Paciente(models.Model):
     def __str__(self):
         return self.rut_paciente
 
+
+class Espacialista(models.Model):
+    F = 'Femenino'
+    M = 'Masculino'
+   
+    Sexo = [(F,'Femenino'),(M,'Masculino')]
+
+    rut_especialista = models.CharField(max_length=9, primary_key=True)
+    nombre = models.CharField(max_length=100)
+    apellidos = models.CharField(max_length=100)
+    fecha_nac = models.DateField()
+    sexo = models.CharField(max_length=2, choices=Sexo)
+
+    def __str__(self):
+        return self.rut_especialista
+
+
 class AgendarExamen(models.Model):
     descripcion = models.CharField(max_length=300)
     hora = models.TimeField(null=True, blank=True)
@@ -25,7 +42,7 @@ class AgendarExamen(models.Model):
     usuario = models.ForeignKey(Paciente, on_delete=models.CASCADE)
 
     def __str__(self):
-       return self.usuario.rut_paciente
+       return self.usuario
 
 
 
@@ -50,25 +67,11 @@ class TipoExamen(models.Model):
     duracion = models.IntegerField()
     precio = models.IntegerField()
     descripcion = models.TextField(max_length=300)
+    espacialista = models.ForeignKey(Espacialista, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.tipo_examen
 
-
-class Espacialista(models.Model):
-    F = 'Femenino'
-    M = 'Masculino'
-   
-    Sexo = [(F,'Femenino'),(M,'Masculino')]
-
-    rut_especialista = models.CharField(max_length=9, primary_key=True)
-    nombre = models.CharField(max_length=100)
-    apellidos = models.CharField(max_length=100)
-    fecha_nac = models.DateField()
-    sexo = models.CharField(max_length=2, choices=Sexo)
-
-    def __str__(self):
-        return self.rut_especialista
 
 class Examen(models.Model):
     paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE)
