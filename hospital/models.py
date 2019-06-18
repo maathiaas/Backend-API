@@ -88,6 +88,8 @@ class Examen(models.Model):
     def paciente_ape(self):
         return (self.paciente.apellido_pat, self.paciente.apellido_mat)
 
+# arreglar esto, hay que unir bien el apellido paterno y el apellido materno 
+# se ve mal en el front end, averiguar si se arregla desde el back o en el front 
     def duracionExam(self):
         return self.tipo_examen.duracion
 
